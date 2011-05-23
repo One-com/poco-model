@@ -27,7 +27,7 @@ Ext.onReady(function () {
 
         proxy: {
             type: 'rest',
-            url: 'data.json',
+            url: 'data/many.json',
             reader: {
                 type: 'json',
                 root: 'entry',
