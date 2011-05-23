@@ -41,6 +41,11 @@ Ext.onReady(function () {
 
         listeners: {
             load: function (store, records, success) {
+                if (!success) {
+                    console.error("Store couldn't load. If you are running this script from filesystem, please turn on the server and run it from localhost");
+                    return;
+                }
+
                 var contact = store.getAt(2),
                     mail = contact.emails().first(),
                     logger = function (record) {
