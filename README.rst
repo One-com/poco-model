@@ -52,6 +52,7 @@ be nice to have when working with denormalized data:
   well for remote storage.
 
 And specific for ExtJS and Sencha Touch:
+
 * A Record that is marked as dirty should mark its parent relation as dirty
   as well if it is an inner relation.
 * Saving a modified record should delegate to the records parent record if it
