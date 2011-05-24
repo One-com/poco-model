@@ -1,12 +1,13 @@
 Ext JS 4 Portable Contacts (PoCo) model
 =======================================
-This project is an aexample implementation of a PoCo model in Ext JS 4's
+This project is an example implementation of a PoCo model in Ext JS 4's
 data model. It uses Ext JS's Data package to set up associations for 
 PoCo's singular and multiple fields.
 
 Some extra validation types are mixed into the ``Ext.data.validations``
 object, to be able to validate PoCo fields like email, url etc.
 
+Portable Contacts: `http://portablecontacts.net/draft-spec.html <http://portablecontacts.net/draft-spec.html>`_
 
 Patched Ext JS 4
 ================
