@@ -7,7 +7,6 @@
 
 
 Ext.require([
-    'One.validation',
     'Poco.Email',
     'Poco.URL',
     'Poco.Phone',
