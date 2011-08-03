@@ -279,8 +279,9 @@ Ext.onReady(function () {
 
     pluralFields.forEach(function (item) {
         proto['get' + Ext.String.capitalize(item.single)] = function () {
-            var store = this[item.plural]();
-            return store.getAt(store.findExact('primary', true) || 0);
+            var store = this[item.plural](),
+                idx = store.findExact('primary', true);
+            return store.getAt(idx === -1 ? 0 : idx);
         };
     });
 });
