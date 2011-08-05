@@ -71,6 +71,6 @@ exhausitve.
 
 License
 =======
-AssetGraph is licensed under a standard 3-clause BSD license -- see the
+This work is licensed under a standard 3-clause BSD license -- see the
 ``LICENSE``-file for details.
 
