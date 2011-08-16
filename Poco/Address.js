@@ -2,6 +2,9 @@
 
 Ext.define('Poco.Address', {
     extend: 'Ext.data.Model',
+    requires: [
+        'Ext.data.BelongsToAssociation'
+    ],
 
     /**
       * Draft spec: The components of a physical mailing address.
@@ -29,7 +32,7 @@ Ext.define('Poco.Address', {
         { name: 'primary', type: 'boolean', optional: true, defaultValue: null }
     ],
 
-    belongsTo: 'Contact',
+    belongsTo: 'Poco.Contact',
 
     validations: [
         { field: 'type', type: 'inclusion', list: ['home', 'work', 'other'], optional: true },

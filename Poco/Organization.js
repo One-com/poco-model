@@ -2,6 +2,9 @@
 
 Ext.define('Poco.Organization', {
     extend: 'Ext.data.Model',
+    requires: [
+        'Ext.data.BelongsToAssociation'
+    ],
 
     fields: [
         { name: 'name', type: 'string' },
@@ -15,7 +18,7 @@ Ext.define('Poco.Organization', {
         { name: 'primary', type: 'boolean', optional: true, defaultValue: null }
     ],
 
-    belongsTo: 'Contact',
+    belongsTo: 'Poco.Contact',
 
     validations: [
         { field: 'name', type: 'presence' },

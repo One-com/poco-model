@@ -5,24 +5,20 @@
  * This is an example implementation of Portable Contacts 1.0 Draft C: http://portablecontacts.net/draft-spec.html
  */
 
-
-Ext.require([
-    'Poco.Email',
-    'Poco.URL',
-    'Poco.Phone',
-    'Poco.IM',
-    'Poco.Photo',
-    'Poco.Tag',
-    'Poco.Address',
-    'Poco.Organization'
-]);
-
 Ext.define('Poco.Contact', {
     extend: 'Ext.data.Model',
-    
-    require: [
+    requires: [
         'Ext.data.BelongsToAssociation',
         'Ext.data.HasManyAssociation',
+        'Ext.data.proxy.Rest',
+        'Poco.Email',
+        'Poco.URL',
+        'Poco.Phone',
+        'Poco.IM',
+        'Poco.Photo',
+        'Poco.Tag',
+        'Poco.Address',
+        'Poco.Organization'
     ],
 
     proxy: {
