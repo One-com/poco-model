@@ -1,21 +1,24 @@
 /*global Ext, exports, window*/
 /*jslint regexp:false*/
-
-if (Ext) {
-    Ext.define('One.validation', {
-        requires: [
-            'Ext.data.validations'
-        ]
-    });
-}
-
 (function () {
-    var install = {
+    var validation = {
+            regex: {}
+        },
+        messages = {
+            domain: "is not a valid domain name",
+            subdomain: "is not a valid domain name",
+            email: "is not a valid email address",
+            url: "is not a valid URL",
+            mailto: "is not a valid mailto-URL",
+            pocoprimary: "is not a valid primary property of Portable Contacts"
+        },
+        install = {
             pocoprimary: function (value) {
                 //console.log('FIXME');
                 return value === true || value === null;
             }
         },
+        name,
         tld = /(?:a[cdefgilmnoqrstuwxz]|aero|arpa|asia|b[abdefghijmnorstvwyz]|biz|c[acdfghiklmnoruvxyz]|cat|com|coop|d[ejkmoz]|e[cegrstu]|edu|f[ijkmor]|g[abdefghilmnpqrstuwy]|gov|h[kmnrtu]|i[delmnoqrst]|info|int|j[emop]|jobs|k[eghimnprwyz]|l[abcikrstuvy]|m[acdeghklmnopqrstuvwxyz]|mil|mobi|museum|n[acefgilopruz]|name|net|om|org|p[aefghklmnrstwy]|pro|qa|r[eosuw]|s[abcdeghijklmnortuvyz]|t[cdfghjklmnoprtvwz]|tel|travel|u[agksyz]|v[aceginu]|w[fs]|xn--(?:0zwm56d|11b5bs3a9aj6g|80akhbyknj4f|9t4b11yi5a|deba0ad|fiqs8s|fiqz9s|fzc2c9e2c|g6w251d|hgbk6aj7f53bba|hlcj6aya9esc7a|j6w193g|jxalpdlp|kgbechtv|kprw13d|kpry57d|mgbaam7a8h|mgbayh7gpa|mgberp4a5d4ar|o3cw4h|p1ai|pgbs0dh|wgbh1c|xkc2al3hye2a|ygbi2ammx|zckzah)|y[et]|z[amw])/i, // See block comment below
         domainPart = /[a-z0-9](?:[\-a-z0-9]*[a-z0-9])?/i,
         port = /\d{1,5}/,
@@ -31,21 +34,8 @@ if (Ext) {
     install.url = new RegExp(scheme.source + "://(?:" + user.source + "(?::" + password.source + ")?@)?" + install.subdomain.source + "(?::" + port.source + ")?(?:/" + path.source + ")?", "i"); // See http://www.ietf.org/rfc/rfc1738.txt
     install.mailto = new RegExp("mailto:" + install.email.source, "i"); // TODO: This needs to be improved
 
-    var messages = {
-        domain: "is not a valid domain name",
-        subdomain: "is not a valid domain name",
-        email: "is not a valid email address",
-        url: "is not a valid URL",
-        mailto: "is not a valid mailto-URL",
-        pocoprimary: "is not a valid primary property of Portable Contacts"
-    };
-
-    var validation = {
-        regex: {}
-    };
-
 /*jslint floop:true*/
-    for (var name in install) {
+    for (name in install) {
         if (install.hasOwnProperty(name)) {
             (function (name) {
                 if (install[name].test) {
@@ -57,7 +47,13 @@ if (Ext) {
                     validation[name] = install[name];
                 }
 
-                if (Ext && Ext.onReady) {
+                if (typeof Ext !== 'undefined' && Ext.onReady) {
+                    Ext.define('One.validation', {
+                        requires: [
+                            'Ext.data.validations'
+                        ]
+                    });
+
                     Ext.onReady(function () {
                         if (window.Ext && Ext.data && Ext.data.validations) { // Sencha touch
                             Ext.data.validations[name] = function (config, value) {
@@ -69,17 +65,21 @@ if (Ext) {
                         }
                     });
                 }
-                if (typeof exports !== 'undefined') { // CommonJS
-                    exports[name] = validation[name];
-                }
             }(name));
         }
     }
-    
-    if (window.one) {
-        one.validations = validations;
-    }
 /*jslint floop:false*/
+
+    // Browser
+    if (typeof window !== 'undefined') {
+        window.One = window.One || {};
+        window.One.validation = validation;
+    }
+
+    // CommonJS
+    if (typeof module !== 'undefined') {
+        module.exports = validation;
+    }
 }());
 
 /*
